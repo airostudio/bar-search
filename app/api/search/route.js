@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { searchSampleVenues, searchLiveVenues } from "../../../lib/search";
+import { searchSampleVenues, searchLiveVenues, searchCommunityVenues, sortVenues } from "../../../lib/search";
 import { mapsSearchUrl, mapsEmbedUrl, socialLinks } from "../../../lib/links";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +30,16 @@ export async function GET(request) {
   }
   if (!venues) venues = searchSampleVenues(params);
 
-  const results = venues.map((venue) => ({
+  let community = [];
+  try {
+    community = await searchCommunityVenues(params);
+  } catch (err) {
+    console.error("Community venue search failed:", err);
+  }
+
+  const merged = sortVenues([...venues, ...community], params.sort);
+
+  const results = merged.map((venue) => ({
     ...venue,
     mapsUrl: venue.googleMapsUri || mapsSearchUrl(venue),
     mapsEmbedUrl: mapsEmbedUrl(venue),

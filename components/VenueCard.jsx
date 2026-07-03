@@ -46,6 +46,7 @@ export default function VenueCard({ venue }) {
           {venue.categoryLabel}
           {venue.adult ? " · 18+" : ""}
           {venue.openNow === true ? <span className="open-now"> · Open now</span> : null}
+          {venue.source === "community" ? <span className="badge" style={{ marginLeft: 6 }}>Community</span> : null}
         </div>
         <div className="card-loc">{location}</div>
         <Stars rating={venue.rating} count={venue.ratingCount} />

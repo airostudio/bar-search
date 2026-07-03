@@ -99,6 +99,9 @@ export default function Home() {
             Search bars, pubs, nightclubs, karaoke, hostess bars and gentlemen&apos;s clubs in
             every country — with maps, ratings, and one-click social lookups.
           </p>
+          <a href="/submit" className="link-pill maps" style={{ display: "inline-block", marginTop: 10 }}>
+            + Add a venue we&apos;re missing
+          </a>
 
           <div className="panel">
             <div className="row">
