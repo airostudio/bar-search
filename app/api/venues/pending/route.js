@@ -8,5 +8,5 @@ export async function GET(request) {
   }
   const pending = await store.listPending();
   pending.sort((a, b) => b.submittedAt - a.submittedAt);
-  return NextResponse.json({ pending, persistent: store.isPersistent });
+  return NextResponse.json({ pending, persistent: store.isPersistent, backend: store.backend });
 }

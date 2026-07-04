@@ -10,6 +10,7 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState("");
   const [pending, setPending] = useState([]);
   const [persistent, setPersistent] = useState(true);
+  const [backend, setBackend] = useState("memory");
   const [busyId, setBusyId] = useState(null);
 
   const loadPending = useCallback(async () => {
@@ -21,6 +22,7 @@ export default function AdminPage() {
     const data = await res.json();
     setPending(data.pending || []);
     setPersistent(data.persistent !== false);
+    setBackend(data.backend || "memory");
     setAuthed(true);
   }, []);
 
@@ -92,13 +94,18 @@ export default function AdminPage() {
     <main className="container">
       <div className="results-meta" style={{ marginTop: 30 }}>
         <h2>Pending venue submissions ({pending.length})</h2>
-        <button className="btn secondary" onClick={logout} type="button">Log out</button>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <span className={`badge${backend !== "memory" ? " live" : ""}`}>
+            Storage: {backend === "supabase" ? "Supabase" : backend === "redis" ? "Upstash Redis" : "In-memory (not persistent)"}
+          </span>
+          <button className="btn secondary" onClick={logout} type="button">Log out</button>
+        </div>
       </div>
 
       {!persistent ? (
         <p style={{ color: "var(--gold)", fontSize: 13.5, marginBottom: 16 }}>
           No persistent storage configured — submissions live in memory only and will be lost on
-          restart/redeploy. Set KV_REST_API_URL / KV_REST_API_TOKEN (see README) before relying on this.
+          restart/redeploy. Set SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (see README) before relying on this.
         </p>
       ) : null}
 

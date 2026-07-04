@@ -78,7 +78,27 @@ for production use:
 1. **`ADMIN_PASSWORD`** — required to log into `/admin`. Without it, `/admin` refuses
    all logins (submissions still queue up, you just can't approve them yet).
 2. **Persistent storage** — without it, submissions live in server memory and vanish on
-   every restart/redeploy (fine for trying it out, not for real use). Add:
+   every restart/redeploy (fine for trying it out, not for real use).
+
+   **Recommended: Supabase** (Postgres — a real, inspectable database):
+
+   1. Create a free project at https://supabase.com.
+   2. Open its **SQL Editor** and run the contents of `supabase/schema.sql`
+      (creates the `venues` table with Row Level Security enabled and no public
+      policies, so it's unreachable except via the server-side key below).
+   3. Copy the **Project URL** and **`service_role`** secret key from
+      Project Settings → API, and set:
+
+      ```
+      SUPABASE_URL=https://your-project.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+      ```
+
+   The `service_role` key bypasses Row Level Security and must stay server-side —
+   it's only ever read inside API route handlers (`lib/store.js`), never sent to
+   the browser. Don't reuse it in any client component.
+
+   **Alternative: Upstash Redis** (used only if the Supabase vars above aren't set):
 
    ```
    KV_REST_API_URL=...
@@ -89,8 +109,8 @@ for production use:
    → it injects these automatically. Or create a free database directly at
    https://console.upstash.com and copy its REST URL/token.
 
-The `/admin` page shows a warning banner if persistent storage isn't configured, so
-it's obvious when submissions are only living in memory.
+The `/admin` page shows which storage backend is active (Supabase, Redis, or
+in-memory) and a warning banner if nothing persistent is configured.
 
 Submissions are rate-limited (5 per IP per hour) and include a honeypot field, but for
 a public-facing deployment expecting real traffic, consider adding a CAPTCHA (e.g.
@@ -115,7 +135,7 @@ components/
   AgeGate.jsx          # 18+ confirmation modal
 lib/
   search.js            # filtering/sorting + Places API (New) client + community merge
-  store.js             # persistent (Upstash Redis) or in-memory submission storage
+  store.js             # submission storage: Supabase, else Upstash Redis, else in-memory
   adminAuth.js          # signed admin session cookie (no extra auth dependency)
   categories.js        # venue taxonomy (adult categories flagged)
   countries.js         # AUTO-GENERATED full ISO country list
@@ -123,13 +143,15 @@ lib/
   links.js             # Google Maps + social/search-engine link builders
 scripts/
   generate-countries.mjs  # regenerates lib/countries.js (npm run generate:countries)
+supabase/
+  schema.sql           # `venues` table definition — run once in the Supabase SQL Editor
 ```
 
 ## Deploying
 
 Standard Next.js app — deploys as-is to Vercel, Netlify, or any Node host
 (`npm run build && npm start`). Set `GOOGLE_PLACES_API_KEY`, `ADMIN_PASSWORD`, and
-(recommended) `KV_REST_API_URL` / `KV_REST_API_TOKEN` in the host's environment
+(recommended) `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` in the host's environment
 variables.
 
 ## Legal notes
