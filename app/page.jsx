@@ -6,7 +6,7 @@ import { CATEGORIES } from "../lib/categories";
 import AgeGate from "../components/AgeGate";
 import VenueCard from "../components/VenueCard";
 
-const AGE_KEY = "baratlas.age.confirmed";
+const AGE_KEY = "findahbar.age.confirmed";
 
 export default function Home() {
   const [q, setQ] = useState("");
@@ -94,7 +94,7 @@ export default function Home() {
 
       <header className="hero">
         <div className="container">
-          <div className="brand">Bar<em>Atlas</em> 🌍</div>
+          <div className="brand">Findah<em>.bar</em> 🌍</div>
           <p className="tagline">
             Search bars, pubs, nightclubs, karaoke, hostess bars and gentlemen&apos;s clubs in
             every country — with maps, ratings, and one-click social lookups.
@@ -199,10 +199,10 @@ export default function Home() {
 
       <footer>
         <div className="container">
-          <span>BarAtlas — venue data via Google Places API or bundled demo dataset.</span>
+          <span>Findah.bar — venue data via Google Places API or bundled demo dataset.</span>
           <span>
             Social &amp; search-engine buttons open live results on each platform. Automated scraping of
-            Instagram/Facebook violates their Terms of Service, so BarAtlas links you to the source instead.
+            Instagram/Facebook violates their Terms of Service, so Findah.bar links you to the source instead.
           </span>
           <span>Drink responsibly. Adult venues shown only after 18+ confirmation.</span>
         </div>
