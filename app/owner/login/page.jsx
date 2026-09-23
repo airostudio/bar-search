@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import NavBar from "../../../components/NavBar";
+import PasswordField from "../../../components/PasswordField";
 
 export default function OwnerLoginPage() {
   const [email, setEmail] = useState("");
@@ -41,13 +42,16 @@ export default function OwnerLoginPage() {
             <div className="row">
               <div className="field">
                 <label htmlFor="email">Email</label>
-                <input id="email" type="email" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)} />
+                <div className="input-icon">
+                  <span className="icon-glyph">✉️</span>
+                  <input id="email" type="email" required autoFocus value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
               </div>
             </div>
             <div className="row" style={{ marginTop: 10 }}>
               <div className="field">
                 <label htmlFor="password">Password</label>
-                <input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                <PasswordField id="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
             {error ? <p style={{ color: "var(--accent)", fontSize: 13.5, marginTop: 10 }}>{error}</p> : null}

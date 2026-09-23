@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CATEGORY_BY_ID } from "../../lib/categories";
 import { COUNTRY_NAME } from "../../lib/countries";
 import ThemeToggle from "../../components/ThemeToggle";
+import PasswordField from "../../components/PasswordField";
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(null); // null = checking, false = need login, true = in
@@ -130,7 +131,7 @@ export default function AdminPage() {
             <div className="row">
               <div className="field">
                 <label htmlFor="pw">Password</label>
-                <input id="pw" type="password" autoFocus value={password} onChange={(e) => setPassword(e.target.value)} />
+                <PasswordField id="pw" autoFocus value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
             {loginError ? <p style={{ color: "var(--accent)", fontSize: 13.5, marginTop: 10 }}>{loginError}</p> : null}

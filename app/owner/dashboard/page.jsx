@@ -125,7 +125,10 @@ export default function OwnerDashboardPage() {
         </p>
         <form onSubmit={runSearch} className="row">
           <div className="field" style={{ flex: "1 1 260px" }}>
-            <input type="text" placeholder="Search your venue by name…" value={q} onChange={(e) => setQ(e.target.value)} />
+            <div className="input-icon">
+              <span className="icon-glyph">🔍</span>
+              <input type="text" placeholder="Search your venue by name…" value={q} onChange={(e) => setQ(e.target.value)} />
+            </div>
           </div>
           <button className="btn" type="submit" disabled={searching}>{searching ? "Searching…" : "Search"}</button>
         </form>

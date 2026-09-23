@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 
 export default function OwnerVenuePanel({ claim }) {
+  // Multiple panels render on the dashboard at once, one per claimed
+  // venue, so every field id needs a per-venue suffix to stay unique.
+  const uid = (name) => `${name}-${claim.venueId}`.replace(/[^a-zA-Z0-9_-]/g, "-");
+
   const [specials, setSpecials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -122,22 +126,22 @@ export default function OwnerVenuePanel({ claim }) {
 
           <form onSubmit={addSpecial} className="row" style={{ marginTop: 10 }}>
             <div className="field" style={{ flex: "1 1 160px" }}>
-              <label>Title</label>
-              <input type="text" maxLength={120} placeholder="Happy hour 5-7pm"
+              <label htmlFor={uid("special-title")}>Title</label>
+              <input id={uid("special-title")} type="text" maxLength={120} placeholder="Happy hour 5-7pm"
                      value={newSpecial.title} onChange={(e) => setNewSpecial((s) => ({ ...s, title: e.target.value }))} />
             </div>
             <div className="field" style={{ flex: "2 1 220px" }}>
-              <label>Description (optional)</label>
-              <input type="text" maxLength={300} placeholder="Half-price cocktails"
+              <label htmlFor={uid("special-desc")}>Description (optional)</label>
+              <input id={uid("special-desc")} type="text" maxLength={300} placeholder="Half-price cocktails"
                      value={newSpecial.description} onChange={(e) => setNewSpecial((s) => ({ ...s, description: e.target.value }))} />
             </div>
             <div className="field" style={{ flex: "0 1 140px" }}>
-              <label>From (optional)</label>
-              <input type="date" value={newSpecial.startsAt} onChange={(e) => setNewSpecial((s) => ({ ...s, startsAt: e.target.value }))} />
+              <label htmlFor={uid("special-from")}>From (optional)</label>
+              <input id={uid("special-from")} type="date" value={newSpecial.startsAt} onChange={(e) => setNewSpecial((s) => ({ ...s, startsAt: e.target.value }))} />
             </div>
             <div className="field" style={{ flex: "0 1 140px" }}>
-              <label>Until (optional)</label>
-              <input type="date" value={newSpecial.endsAt} onChange={(e) => setNewSpecial((s) => ({ ...s, endsAt: e.target.value }))} />
+              <label htmlFor={uid("special-until")}>Until (optional)</label>
+              <input id={uid("special-until")} type="date" value={newSpecial.endsAt} onChange={(e) => setNewSpecial((s) => ({ ...s, endsAt: e.target.value }))} />
             </div>
             <div className="row controls" style={{ marginTop: 4 }}>
               <button className="btn secondary" type="submit" disabled={addingSpecial}>
@@ -150,25 +154,26 @@ export default function OwnerVenuePanel({ claim }) {
           <form onSubmit={saveInfo}>
             <div className="row">
               <div className="field">
-                <label>Description</label>
-                <input type="text" maxLength={400} value={info.description}
+                <label htmlFor={uid("info-desc")}>Description</label>
+                <span className="field-hint count">{info.description.length}/400</span>
+                <textarea id={uid("info-desc")} maxLength={400} rows={2} value={info.description}
                        onChange={(e) => setInfo((i) => ({ ...i, description: e.target.value }))} />
               </div>
             </div>
             <div className="row" style={{ marginTop: 10 }}>
               <div className="field">
-                <label>Phone</label>
-                <input type="text" maxLength={40} value={info.phone}
+                <label htmlFor={uid("info-phone")}>Phone</label>
+                <input id={uid("info-phone")} type="tel" maxLength={40} value={info.phone}
                        onChange={(e) => setInfo((i) => ({ ...i, phone: e.target.value }))} />
               </div>
               <div className="field">
-                <label>Website</label>
-                <input type="text" maxLength={200} value={info.website}
+                <label htmlFor={uid("info-website")}>Website</label>
+                <input id={uid("info-website")} type="text" maxLength={200} value={info.website}
                        onChange={(e) => setInfo((i) => ({ ...i, website: e.target.value }))} />
               </div>
               <div className="field">
-                <label>Hours</label>
-                <input type="text" maxLength={200} placeholder="Mon–Sat 4pm–2am" value={info.hoursText}
+                <label htmlFor={uid("info-hours")}>Hours</label>
+                <input id={uid("info-hours")} type="text" maxLength={200} placeholder="Mon–Sat 4pm–2am" value={info.hoursText}
                        onChange={(e) => setInfo((i) => ({ ...i, hoursText: e.target.value }))} />
               </div>
             </div>

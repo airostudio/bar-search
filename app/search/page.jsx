@@ -108,8 +108,11 @@ export default function Home() {
             <div className="row">
               <div className="field" style={{ flex: "2 1 260px" }}>
                 <label htmlFor="q">Search</label>
-                <input id="q" type="text" placeholder="Name, vibe, keyword…"
-                       value={q} onChange={(e) => setQ(e.target.value)} />
+                <div className="input-icon">
+                  <span className="icon-glyph">🔍</span>
+                  <input id="q" type="text" placeholder="Name, vibe, keyword…"
+                         value={q} onChange={(e) => setQ(e.target.value)} />
+                </div>
               </div>
               <div className="field">
                 <label htmlFor="country">Country ({COUNTRIES.length})</label>

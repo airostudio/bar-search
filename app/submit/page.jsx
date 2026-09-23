@@ -101,7 +101,8 @@ export default function SubmitPage() {
             <div className="row">
               <div className="field">
                 <label htmlFor="description">Description (optional)</label>
-                <input id="description" type="text" maxLength={400} value={form.description} onChange={set("description")} />
+                <span className="field-hint count">{form.description.length}/400</span>
+                <textarea id="description" maxLength={400} rows={3} value={form.description} onChange={set("description")} />
               </div>
             </div>
 
