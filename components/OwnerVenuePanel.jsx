@@ -174,7 +174,7 @@ export default function OwnerVenuePanel({ claim }) {
             </div>
             <div className="row controls" style={{ marginTop: 10 }}>
               <button className="btn" type="submit" disabled={savingInfo}>{savingInfo ? "Saving…" : "Save info"}</button>
-              {infoSaved ? <span style={{ color: "#6fdc96", fontSize: 13.5 }}>Saved.</span> : null}
+              {infoSaved ? <span style={{ color: "var(--positive)", fontSize: 13.5 }}>Saved.</span> : null}
             </div>
           </form>
         </>

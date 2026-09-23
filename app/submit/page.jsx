@@ -49,7 +49,7 @@ export default function SubmitPage() {
         </p>
 
         {status === "ok" ? (
-          <p style={{ color: "#6fdc96" }}>Thanks! Your submission is pending review.</p>
+          <p style={{ color: "var(--positive)" }}>Thanks! Your submission is pending review.</p>
         ) : (
           <form onSubmit={submit}>
             <div className="row">

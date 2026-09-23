@@ -138,7 +138,7 @@ export default function OwnerDashboardPage() {
                 <div className="card-loc">{[venue.city, venue.country].filter(Boolean).join(", ")}</div>
                 <div className="row controls" style={{ marginTop: 8 }}>
                   {claimStatus[venue.id] === "claimed" ? (
-                    <span style={{ color: "#6fdc96", fontSize: 13.5 }}>Claim submitted — awaiting review.</span>
+                    <span style={{ color: "var(--positive)", fontSize: 13.5 }}>Claim submitted — awaiting review.</span>
                   ) : (
                     <button className="btn secondary" type="button" disabled={claimStatus[venue.id] === "claiming"}
                             onClick={() => claimVenue(venue)}>

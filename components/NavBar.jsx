@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function NavBar() {
   const [email, setEmail] = useState(null); // null = checking, "" = logged out, string = logged in
@@ -33,6 +34,7 @@ export default function NavBar() {
           ) : (
             <a href="/owner/login">For bar owners</a>
           )}
+          <ThemeToggle />
         </div>
       </div>
     </nav>

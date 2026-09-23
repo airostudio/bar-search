@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { CATEGORY_BY_ID } from "../../lib/categories";
 import { COUNTRY_NAME } from "../../lib/countries";
+import ThemeToggle from "../../components/ThemeToggle";
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(null); // null = checking, false = need login, true = in
@@ -96,7 +97,10 @@ export default function AdminPage() {
   if (!authed) {
     return (
       <main className="container">
-        <div className="panel" style={{ maxWidth: 380, margin: "70px auto" }}>
+        <div className="row controls" style={{ justifyContent: "flex-end", marginTop: 16 }}>
+          <ThemeToggle />
+        </div>
+        <div className="panel" style={{ maxWidth: 380, margin: "20px auto 70px" }}>
           <h2 style={{ marginBottom: 14 }}>Admin login</h2>
           <form onSubmit={login}>
             <div className="row">
@@ -123,6 +127,7 @@ export default function AdminPage() {
           <span className={`badge${backend !== "memory" ? " live" : ""}`}>
             Storage: {backend === "supabase" ? "Supabase" : backend === "redis" ? "Upstash Redis" : "In-memory (not persistent)"}
           </span>
+          <ThemeToggle />
           <button className="btn secondary" onClick={logout} type="button">Log out</button>
         </div>
       </div>
