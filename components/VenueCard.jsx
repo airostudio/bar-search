@@ -49,10 +49,28 @@ export default function VenueCard({ venue, includeAdult }) {
           {venue.adult ? " · 18+" : ""}
           {venue.openNow === true ? <span className="open-now"> · Open now</span> : null}
           {venue.source === "community" ? <span className="badge" style={{ marginLeft: 6 }}>Community</span> : null}
+          {venue.claimed ? <span className="badge claimed" style={{ marginLeft: 6 }}>✓ Verified by owner</span> : null}
         </div>
         <div className="card-loc">{location}</div>
+        {venue.hoursText ? <div className="card-loc">🕒 {venue.hoursText}</div> : null}
         <Stars rating={venue.rating} count={venue.ratingCount} />
         {venue.description ? <p className="card-desc">{venue.description}</p> : null}
+
+        {venue.specials && venue.specials.length > 0 ? (
+          <div className="specials">
+            {venue.specials.map((s) => (
+              <div key={s.id} className="special">
+                <strong>🔥 {s.title}</strong>
+                {s.description ? <span> — {s.description}</span> : null}
+                {s.startsAt || s.endsAt ? (
+                  <span className="special-dates">
+                    {" "}({[s.startsAt, s.endsAt].filter(Boolean).join(" – ")})
+                  </span>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : null}
 
         <div className="links">
           <a className="link-pill maps" href={venue.mapsUrl} target="_blank" rel="noopener noreferrer">

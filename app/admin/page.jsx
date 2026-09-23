@@ -12,6 +12,8 @@ export default function AdminPage() {
   const [persistent, setPersistent] = useState(true);
   const [backend, setBackend] = useState("memory");
   const [busyId, setBusyId] = useState(null);
+  const [claims, setClaims] = useState([]);
+  const [claimBusyId, setClaimBusyId] = useState(null);
 
   const loadPending = useCallback(async () => {
     const res = await fetch("/api/venues/pending");
@@ -26,7 +28,15 @@ export default function AdminPage() {
     setAuthed(true);
   }, []);
 
-  useEffect(() => { loadPending(); }, [loadPending]);
+  const loadClaims = useCallback(async () => {
+    const res = await fetch("/api/admin/claims");
+    if (res.ok) {
+      const data = await res.json();
+      setClaims(data.claims || []);
+    }
+  }, []);
+
+  useEffect(() => { loadPending(); loadClaims(); }, [loadPending, loadClaims]);
 
   const login = async (e) => {
     e.preventDefault();
@@ -43,6 +53,7 @@ export default function AdminPage() {
     }
     setPassword("");
     loadPending();
+    loadClaims();
   };
 
   const logout = async () => {
@@ -61,6 +72,20 @@ export default function AdminPage() {
       setPending((prev) => prev.filter((v) => v.id !== id));
     } finally {
       setBusyId(null);
+    }
+  };
+
+  const actClaim = async (id, action) => {
+    setClaimBusyId(id);
+    try {
+      await fetch(`/api/admin/claims/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+      setClaims((prev) => prev.filter((c) => c.id !== id));
+    } finally {
+      setClaimBusyId(null);
     }
   };
 
@@ -141,6 +166,36 @@ export default function AdminPage() {
               </article>
             );
           })}
+        </div>
+      )}
+
+      <div className="results-meta" style={{ marginTop: 40 }}>
+        <h2>Pending venue claims ({claims.length})</h2>
+      </div>
+
+      {claims.length === 0 ? (
+        <p className="empty">No pending claims.</p>
+      ) : (
+        <div className="grid" style={{ paddingBottom: 60 }}>
+          {claims.map((c) => (
+            <article key={c.id} className="card">
+              <div className="card-body">
+                <div className="card-title"><span>{c.venueName}</span></div>
+                <div className="card-loc">
+                  {[c.venueCity, COUNTRY_NAME[c.venueCountryCode] || c.venueCountryCode].filter(Boolean).join(", ")}
+                </div>
+                <div className="card-loc">Venue ID: {c.venueId}</div>
+                <div className="links">
+                  <button className="btn" disabled={claimBusyId === c.id} onClick={() => actClaim(c.id, "approve")} type="button">
+                    Approve
+                  </button>
+                  <button className="btn secondary" disabled={claimBusyId === c.id} onClick={() => actClaim(c.id, "reject")} type="button">
+                    Reject
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       )}
     </main>

@@ -9,6 +9,7 @@ import {
 import { mapsSearchUrl, mapsEmbedUrl, socialLinks, areaMapEmbedUrl } from "../../../../lib/links";
 import { CATEGORY_BY_ID } from "../../../../lib/categories";
 import { COUNTRY_NAME } from "../../../../lib/countries";
+import { attachOwnerData } from "../../../../lib/ownerStore";
 
 export const dynamic = "force-dynamic";
 
@@ -63,12 +64,18 @@ export async function GET(request) {
   if (params.excludeId) merged = merged.filter((v) => String(v.id) !== String(params.excludeId));
   merged = merged.slice(0, 8);
 
-  const results = merged.map((venue) => ({
+  let results = merged.map((venue) => ({
     ...venue,
     mapsUrl: venue.googleMapsUri || mapsSearchUrl(venue),
     mapsEmbedUrl: mapsEmbedUrl(venue),
     socials: socialLinks(venue),
   }));
+
+  try {
+    results = await attachOwnerData(results);
+  } catch (err) {
+    console.error("Failed to attach owner data:", err);
+  }
 
   const cat = CATEGORY_BY_ID[params.category];
   const areaQuery = `${cat ? cat.placesQuery : "bar"} near me`;

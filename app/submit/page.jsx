@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CATEGORIES } from "../../lib/categories";
 import { COUNTRIES } from "../../lib/countries";
+import NavBar from "../../components/NavBar";
 
 const EMPTY = {
   name: "", category: "bar", countryCode: "", city: "", address: "",
@@ -37,7 +38,9 @@ export default function SubmitPage() {
   };
 
   return (
-    <main className="container">
+    <>
+      <NavBar />
+      <main className="container">
       <div className="panel" style={{ maxWidth: 600, margin: "40px auto" }}>
         <h2 style={{ marginBottom: 6 }}>Add a venue</h2>
         <p style={{ color: "var(--text-dim)", fontSize: 13.5, marginBottom: 18 }}>
@@ -118,6 +121,7 @@ export default function SubmitPage() {
           </form>
         )}
       </div>
-    </main>
+      </main>
+    </>
   );
 }

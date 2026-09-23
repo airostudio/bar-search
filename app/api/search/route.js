@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { searchSampleVenues, searchLiveVenues, searchCommunityVenues, sortVenues } from "../../../lib/search";
 import { mapsSearchUrl, mapsEmbedUrl, socialLinks } from "../../../lib/links";
+import { attachOwnerData } from "../../../lib/ownerStore";
 
 export const dynamic = "force-dynamic";
 
@@ -39,12 +40,18 @@ export async function GET(request) {
 
   const merged = sortVenues([...venues, ...community], params.sort);
 
-  const results = merged.map((venue) => ({
+  let results = merged.map((venue) => ({
     ...venue,
     mapsUrl: venue.googleMapsUri || mapsSearchUrl(venue),
     mapsEmbedUrl: mapsEmbedUrl(venue),
     socials: socialLinks(venue),
   }));
+
+  try {
+    results = await attachOwnerData(results);
+  } catch (err) {
+    console.error("Failed to attach owner data:", err);
+  }
 
   return NextResponse.json({ source, count: results.length, results });
 }

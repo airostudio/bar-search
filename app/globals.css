@@ -25,6 +25,15 @@ a { color: inherit; }
 
 .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
+/* ---------- nav bar ---------- */
+.navbar { border-bottom: 1px solid var(--border); background: var(--bg-raised); }
+.navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; flex-wrap: wrap; gap: 10px; }
+.navbar-brand { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; text-decoration: none; }
+.navbar-brand em { color: var(--accent); font-style: normal; }
+.navbar-links { display: flex; gap: 18px; align-items: center; }
+.navbar-links a { text-decoration: none; color: var(--text-dim); font-size: 14px; font-weight: 500; }
+.navbar-links a:hover { color: var(--text); }
+
 /* ---------- header ---------- */
 .hero {
   padding: 44px 0 26px;
@@ -100,6 +109,15 @@ input[type="text"]:focus, select:focus { outline: 2px solid var(--accent); outli
 .badge { border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; font-size: 12px; }
 .badge.live { border-color: #3fae6a; color: #6fdc96; }
 .badge.demo { border-color: var(--gold); color: var(--gold); }
+.badge.claimed { border-color: #3fae6a; color: #6fdc96; }
+
+.specials { display: flex; flex-direction: column; gap: 4px; background: rgba(232, 179, 75, 0.1); border: 1px solid rgba(232, 179, 75, 0.3); border-radius: 8px; padding: 8px 10px; }
+.special { font-size: 13px; color: var(--text); }
+.special-dates { color: var(--text-dim); }
+
+.owner-venue-panel h3 { font-size: 18px; }
+.owner-venue-panel h4 { font-size: 14px; margin-bottom: 6px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.owner-specials-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; padding-bottom: 60px; }
 
@@ -137,6 +155,14 @@ input[type="text"]:focus, select:focus { outline: 2px solid var(--accent); outli
 .link-pill.maps { border-color: #4b6ce8; color: #8ea3f5; }
 
 .empty { text-align: center; color: var(--text-dim); padding: 70px 0; }
+
+/* ---------- landing page ---------- */
+.feature-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.feature-card { text-align: left; }
+.step-number {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px;
+}
 .empty.small { padding: 14px 0; }
 
 .not-enjoying { width: 100%; margin-top: 4px; font-size: 13.5px; padding: 9px 14px; }
