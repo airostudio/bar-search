@@ -12,6 +12,11 @@
   --link-blue: #8ea3f5;
   --map-bg: #10131f;
   --radius: 12px;
+  /* Sampled directly from the logo artwork ("my" teal / "bar" gold —
+     "vibe" reuses --text, since in the logo it's just the neutral
+     foreground color against the dark backdrop). */
+  --wm-my: #245266;
+  --wm-bar: #e6a746;
 }
 
 /* ---------- daylight mode ---------- */
@@ -28,6 +33,7 @@
   --positive: #1f8f52;
   --link-blue: #3355c9;
   --map-bg: #e7e3ee;
+  --wm-bar: #a6701f; /* the logo's gold is too light to read on a white background */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,7 +55,6 @@ a { color: inherit; }
 .navbar { border-bottom: 1px solid var(--border); background: var(--bg-raised); }
 .navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; flex-wrap: wrap; gap: 10px; }
 .navbar-brand { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-.navbar-brand em { color: var(--accent); font-style: normal; }
 .navbar-logo { border-radius: 6px; display: block; }
 .navbar-links { display: flex; gap: 18px; align-items: center; }
 .navbar-links a { text-decoration: none; color: var(--text-dim); font-size: 14px; font-weight: 500; }
@@ -71,7 +76,11 @@ a { color: inherit; }
   border-bottom: 1px solid var(--border);
 }
 .brand { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; }
-.brand em { color: var(--accent); font-style: normal; }
+
+.wordmark { text-transform: lowercase; }
+.wm-my { color: var(--wm-my); }
+.wm-vibe { color: var(--text); }
+.wm-bar { color: var(--wm-bar); }
 .brand-logo { border-radius: 9px; display: block; }
 .tagline { color: var(--text-dim); margin-top: 6px; max-width: 640px; }
 

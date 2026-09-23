@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "MyVibe.bar — Global Bar & Nightlife Search",
+  title: "myvibe.bar — Global Bar & Nightlife Search",
   description:
     "Search bars, pubs, nightclubs, hostess bars and gentlemen's clubs in every country, with maps and social lookups.",
   icons: {
@@ -9,7 +9,7 @@ export const metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "MyVibe.bar — Global Bar & Nightlife Search",
+    title: "myvibe.bar — Global Bar & Nightlife Search",
     description: "Search bars, pubs, nightclubs, hostess bars and gentlemen's clubs in every country.",
     images: [{ url: "/brand/myvibe-logo-full.webp", width: 1362, height: 1142 }],
   },

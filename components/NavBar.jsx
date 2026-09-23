@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import Wordmark from "./Wordmark";
 
 export default function NavBar() {
   const [email, setEmail] = useState(null); // null = checking, "" = logged out, string = logged in
@@ -24,7 +25,7 @@ export default function NavBar() {
       <div className="container navbar-inner">
         <a href="/" className="navbar-brand">
           <img src="/brand/myvibe-icon.png" alt="" width={28} height={28} className="navbar-logo" />
-          MyVibe<em>.bar</em>
+          <Wordmark />
         </a>
         <div className="navbar-links">
           <a href="/search">Search</a>

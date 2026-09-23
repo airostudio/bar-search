@@ -200,10 +200,10 @@ export default function Home() {
 
       <footer>
         <div className="container">
-          <span>MyVibe.bar — venue data via Google Places API or bundled demo dataset.</span>
+          <span>myvibe.bar — venue data via Google Places API or bundled demo dataset.</span>
           <span>
             Social &amp; search-engine buttons open live results on each platform. Automated scraping of
-            Instagram/Facebook violates their Terms of Service, so MyVibe.bar links you to the source instead.
+            Instagram/Facebook violates their Terms of Service, so myvibe.bar links you to the source instead.
           </span>
           <span>Drink responsibly. Adult venues shown only after 18+ confirmation.</span>
         </div>
