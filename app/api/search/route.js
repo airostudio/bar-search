@@ -25,12 +25,18 @@ export const GET = withErrorHandling(async (request) => {
   if (apiKey) {
     try {
       venues = await searchLiveVenues(apiKey, params);
-      source = "live";
+      if (venues.length > 0) source = "live";
     } catch (err) {
       console.error("Live search failed, falling back to demo data:", err);
     }
   }
-  if (!venues) venues = searchSampleVenues(params);
+  // searchLiveVenues swallows per-category Places API errors (quota limits,
+  // invalid region codes, etc.) and resolves with whatever it found — which
+  // can be an empty array rather than a thrown error. An empty array is
+  // truthy, so without the length check below, a fully-failed live search
+  // would never fall back to demo data and the user would just see zero
+  // results with no indication anything went wrong.
+  if (!venues || venues.length === 0) venues = searchSampleVenues(params);
 
   let community = [];
   try {

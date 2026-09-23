@@ -47,12 +47,16 @@ export const GET = withErrorHandling(async (request) => {
           sort: "rating",
         });
       }
-      if (venues) source = "live";
+      if (venues && venues.length > 0) source = "live";
     } catch (err) {
       console.error("Live nearby search failed, falling back to demo data:", err);
     }
   }
-  if (!venues) venues = nearbySampleVenues(params);
+  // Same reasoning as /api/search: a live search that comes back empty
+  // (quota exhausted, invalid region code, etc.) still resolves
+  // successfully with [], which is truthy - so this must check length,
+  // not just truthiness, or the demo fallback never runs.
+  if (!venues || venues.length === 0) venues = nearbySampleVenues(params);
 
   let community = [];
   try {
