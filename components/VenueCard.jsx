@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import NearbyFinder from "./NearbyFinder";
 
 function Stars({ rating, count }) {
   if (!rating) return null;
@@ -14,9 +15,10 @@ function Stars({ rating, count }) {
   );
 }
 
-export default function VenueCard({ venue }) {
+export default function VenueCard({ venue, includeAdult }) {
   // Maps iframes are heavy, so each card loads its map on demand.
   const [showMap, setShowMap] = useState(false);
+  const [finding, setFinding] = useState(false);
 
   const location = [venue.address || venue.city, venue.country].filter(Boolean).join(" · ");
 
@@ -66,6 +68,14 @@ export default function VenueCard({ venue }) {
             </a>
           ))}
         </div>
+
+        {finding ? (
+          <NearbyFinder venue={venue} includeAdult={includeAdult} onClose={() => setFinding(false)} />
+        ) : (
+          <button className="btn secondary not-enjoying" type="button" onClick={() => setFinding(true)}>
+            😕 Not enjoying this bar? Find me a better one
+          </button>
+        )}
       </div>
     </article>
   );

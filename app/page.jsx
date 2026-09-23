@@ -192,7 +192,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid">
-            {results.map((venue) => <VenueCard key={venue.id} venue={venue} />)}
+            {results.map((venue) => <VenueCard key={venue.id} venue={venue} includeAdult={includeAdult} />)}
           </div>
         )}
       </main>
