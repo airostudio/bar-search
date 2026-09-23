@@ -1,4 +1,4 @@
--- Findah.bar data — venue submissions, bar-owner claims, specials, and
+-- MyVibe.bar data — venue submissions, bar-owner claims, specials, and
 -- owner-corrected info. Run this once in the Supabase SQL Editor for a new
 -- project (Project -> SQL Editor -> New query -> paste -> Run). Safe to
 -- re-run: every statement is idempotent.

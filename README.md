@@ -1,4 +1,4 @@
-# Findah.bar 🌍 — Global Bar & Nightlife Search
+# MyVibe.bar 🌍 — Global Bar & Nightlife Search
 
 A marketing homepage (`/`) plus a full-search website (`/search`) for bars and nightlife
 venues in **every country** — pubs, cocktail bars, nightclubs, karaoke, rooftop and beach
@@ -38,7 +38,7 @@ Automated scraping of Instagram, Facebook, and Google Maps/Search violates each
 platform's Terms of Service, is blocked technically (login walls, rate limiting, IP
 bans, CAPTCHAs), and has been the subject of active legal enforcement by these
 companies. It's also fragile — a scraper breaks every time the target site's markup
-changes. Findah.bar therefore uses three legitimate mechanisms instead:
+changes. MyVibe.bar therefore uses three legitimate mechanisms instead:
 
 1. **Google Places API** (New) — the official, licensed way to get worldwide venue
    data (names, addresses, coordinates, ratings, websites, phone numbers, open-now

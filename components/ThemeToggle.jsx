@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const THEME_KEY = "findahbar.theme";
+const THEME_KEY = "myvibebar.theme";
 
 export default function ThemeToggle() {
   // null until mounted, so we render nothing until we know the real

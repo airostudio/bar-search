@@ -1,15 +1,24 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Findah.bar — Global Bar & Nightlife Search",
+  title: "MyVibe.bar — Global Bar & Nightlife Search",
   description:
     "Search bars, pubs, nightclubs, hostess bars and gentlemen's clubs in every country, with maps and social lookups.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: "MyVibe.bar — Global Bar & Nightlife Search",
+    description: "Search bars, pubs, nightclubs, hostess bars and gentlemen's clubs in every country.",
+    images: [{ url: "/brand/myvibe-logo-full.webp", width: 1362, height: 1142 }],
+  },
 };
 
 // Runs before paint so a saved "light" preference doesn't flash dark first.
 const THEME_INIT_SCRIPT = `
 try {
-  if (localStorage.getItem('findahbar.theme') === 'light') {
+  if (localStorage.getItem('myvibebar.theme') === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
   }
 } catch (e) {}

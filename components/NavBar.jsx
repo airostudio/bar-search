@@ -22,7 +22,10 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <div className="container navbar-inner">
-        <a href="/" className="navbar-brand">Findah<em>.bar</em> 🌍</a>
+        <a href="/" className="navbar-brand">
+          <img src="/brand/myvibe-icon.png" alt="" width={28} height={28} className="navbar-logo" />
+          MyVibe<em>.bar</em>
+        </a>
         <div className="navbar-links">
           <a href="/search">Search</a>
           <a href="/submit">Add a venue</a>

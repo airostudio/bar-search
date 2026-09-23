@@ -48,8 +48,9 @@ a { color: inherit; }
 /* ---------- nav bar ---------- */
 .navbar { border-bottom: 1px solid var(--border); background: var(--bg-raised); }
 .navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; flex-wrap: wrap; gap: 10px; }
-.navbar-brand { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; text-decoration: none; }
+.navbar-brand { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; text-decoration: none; display: flex; align-items: center; gap: 8px; }
 .navbar-brand em { color: var(--accent); font-style: normal; }
+.navbar-logo { border-radius: 6px; display: block; }
 .navbar-links { display: flex; gap: 18px; align-items: center; }
 .navbar-links a { text-decoration: none; color: var(--text-dim); font-size: 14px; font-weight: 500; }
 .navbar-links a:hover { color: var(--text); }
@@ -69,8 +70,9 @@ a { color: inherit; }
     radial-gradient(900px 380px at 85% -20%, rgba(75, 108, 232, 0.16), transparent 60%);
   border-bottom: 1px solid var(--border);
 }
-.brand { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+.brand { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; }
 .brand em { color: var(--accent); font-style: normal; }
+.brand-logo { border-radius: 9px; display: block; }
 .tagline { color: var(--text-dim); margin-top: 6px; max-width: 640px; }
 
 /* ---------- search panel ---------- */

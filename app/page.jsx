@@ -1,7 +1,7 @@
 import NavBar from "../components/NavBar";
 
 export const metadata = {
-  title: "Findah.bar — Find your next favorite bar",
+  title: "MyVibe.bar — Find your next favorite bar",
   description:
     "Search every bar, pub, and nightclub on the planet, get matched by vibe, and let bar owners keep their own specials and info up to date.",
 };
@@ -42,7 +42,10 @@ export default function LandingPage() {
 
       <header className="hero">
         <div className="container">
-          <div className="brand">Findah<em>.bar</em> 🌍</div>
+          <div className="brand">
+            <img src="/brand/myvibe-icon.png" alt="" width={44} height={44} className="brand-logo" />
+            MyVibe<em>.bar</em>
+          </div>
           <p className="tagline" style={{ maxWidth: 560, fontSize: 18, marginTop: 12 }}>
             Find your next favorite bar. Or, if this one isn&apos;t working out — your next one after this one.
           </p>
@@ -104,17 +107,17 @@ export default function LandingPage() {
               We&apos;re opening up a small number of sponsor spots for drinks brands, local tourism boards, and
               nightlife-adjacent products who want in front of people actively looking for a bar right now.
             </p>
-            <a href="mailto:hello@findah.bar" className="btn secondary">Get in touch</a>
+            <a href="mailto:hello@myvibe.bar" className="btn secondary">Get in touch</a>
           </div>
         </section>
       </main>
 
       <footer>
         <div className="container">
-          <span>Findah.bar — venue data via Google Places API or bundled demo dataset.</span>
+          <span>MyVibe.bar — venue data via Google Places API or bundled demo dataset.</span>
           <span>
             Social &amp; search-engine buttons open live results on each platform. Automated scraping of
-            Instagram/Facebook violates their Terms of Service, so Findah.bar links you to the source instead.
+            Instagram/Facebook violates their Terms of Service, so MyVibe.bar links you to the source instead.
           </span>
           <span>Drink responsibly. Adult venues shown only after 18+ confirmation.</span>
         </div>
