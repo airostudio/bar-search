@@ -10,12 +10,13 @@ import { mapsSearchUrl, mapsEmbedUrl, socialLinks, areaMapEmbedUrl } from "../..
 import { CATEGORY_BY_ID } from "../../../../lib/categories";
 import { COUNTRY_NAME } from "../../../../lib/countries";
 import { attachOwnerData } from "../../../../lib/ownerStore";
+import { withErrorHandling } from "../../../../lib/apiError";
 
 export const dynamic = "force-dynamic";
 
 // "Find me a better bar" — alternatives near the venue the user is currently
 // looking at (excluding it), optionally filtered to a chosen vibe/category.
-export async function GET(request) {
+export const GET = withErrorHandling(async (request) => {
   const sp = request.nextUrl.searchParams;
   const params = {
     lat: sp.has("lat") ? parseFloat(sp.get("lat")) : null,
@@ -88,4 +89,4 @@ export async function GET(request) {
   });
 
   return NextResponse.json({ source, results, areaMapEmbedUrl: mapUrl });
-}
+});

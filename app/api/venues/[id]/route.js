@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { store } from "../../../../lib/store";
 import { isAdminRequest } from "../../../../lib/adminAuth";
+import { withErrorHandling } from "../../../../lib/apiError";
 
-export async function PATCH(request, { params }) {
+export const PATCH = withErrorHandling(async (request, { params }) => {
   if (!isAdminRequest(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -18,4 +19,4 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ ok: true });
   }
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });
-}
+});

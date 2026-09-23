@@ -15,26 +15,50 @@ export default function AdminPage() {
   const [busyId, setBusyId] = useState(null);
   const [claims, setClaims] = useState([]);
   const [claimBusyId, setClaimBusyId] = useState(null);
+  const [pendingError, setPendingError] = useState("");
+  const [claimsError, setClaimsError] = useState("");
 
   const loadPending = useCallback(async () => {
-    const res = await fetch("/api/venues/pending");
+    let res;
+    try {
+      res = await fetch("/api/venues/pending");
+    } catch {
+      setPendingError("Could not reach the server.");
+      return;
+    }
     if (res.status === 401) {
       setAuthed(false);
       return;
     }
-    const data = await res.json();
+    // We're authorized regardless of what happens below, so don't get
+    // stuck on the login screen just because loading the data failed.
+    setAuthed(true);
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data) {
+      setPendingError(data?.error || `Failed to load pending submissions (${res.status}).`);
+      return;
+    }
+    setPendingError("");
     setPending(data.pending || []);
     setPersistent(data.persistent !== false);
     setBackend(data.backend || "memory");
-    setAuthed(true);
   }, []);
 
   const loadClaims = useCallback(async () => {
-    const res = await fetch("/api/admin/claims");
-    if (res.ok) {
-      const data = await res.json();
-      setClaims(data.claims || []);
+    let res;
+    try {
+      res = await fetch("/api/admin/claims");
+    } catch {
+      setClaimsError("Could not reach the server.");
+      return;
     }
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data) {
+      setClaimsError(data?.error || `Failed to load pending claims (${res.status}).`);
+      return;
+    }
+    setClaimsError("");
+    setClaims(data.claims || []);
   }, []);
 
   useEffect(() => { loadPending(); loadClaims(); }, [loadPending, loadClaims]);
@@ -139,7 +163,9 @@ export default function AdminPage() {
         </p>
       ) : null}
 
-      {pending.length === 0 ? (
+      {pendingError ? (
+        <p style={{ color: "var(--accent)", fontSize: 13.5, marginBottom: 16 }}>{pendingError}</p>
+      ) : pending.length === 0 ? (
         <p className="empty">No pending submissions.</p>
       ) : (
         <div className="grid">
@@ -178,7 +204,9 @@ export default function AdminPage() {
         <h2>Pending venue claims ({claims.length})</h2>
       </div>
 
-      {claims.length === 0 ? (
+      {claimsError ? (
+        <p style={{ color: "var(--accent)", fontSize: 13.5, marginBottom: 16 }}>{claimsError}</p>
+      ) : claims.length === 0 ? (
         <p className="empty">No pending claims.</p>
       ) : (
         <div className="grid" style={{ paddingBottom: 60 }}>

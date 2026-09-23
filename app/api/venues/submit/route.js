@@ -3,10 +3,11 @@ import crypto from "node:crypto";
 import { store } from "../../../../lib/store";
 import { CATEGORY_BY_ID } from "../../../../lib/categories";
 import { COUNTRY_NAME } from "../../../../lib/countries";
+import { withErrorHandling } from "../../../../lib/apiError";
 
 const MAX_LEN = { name: 120, city: 80, address: 200, description: 400 };
 
-export async function POST(request) {
+export const POST = withErrorHandling(async (request) => {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
   const ok = await store.rateLimitOk(ip);
   if (!ok) {
@@ -72,4 +73,4 @@ export async function POST(request) {
 
   await store.submit(venue);
   return NextResponse.json({ ok: true, id: venue.id });
-}
+});

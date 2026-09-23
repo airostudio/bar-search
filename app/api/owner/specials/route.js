@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { ownerFromRequest } from "../../../../lib/ownerAuth";
 import { createSpecial, isVenueApprovedForOwner, listSpecialsForVenue } from "../../../../lib/ownerStore";
+import { withErrorHandling } from "../../../../lib/apiError";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request) {
+export const GET = withErrorHandling(async (request) => {
   const owner = ownerFromRequest(request);
   if (!owner) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -16,9 +17,9 @@ export async function GET(request) {
 
   const specials = await listSpecialsForVenue(venueId);
   return NextResponse.json({ specials });
-}
+});
 
-export async function POST(request) {
+export const POST = withErrorHandling(async (request) => {
   const owner = ownerFromRequest(request);
   if (!owner) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -35,4 +36,4 @@ export async function POST(request) {
 
   await createSpecial({ venueId, ownerId: owner.id, title, description, startsAt, endsAt });
   return NextResponse.json({ ok: true });
-}
+});

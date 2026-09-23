@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { searchSampleVenues, searchLiveVenues, searchCommunityVenues, sortVenues } from "../../../lib/search";
 import { mapsSearchUrl, mapsEmbedUrl, socialLinks } from "../../../lib/links";
 import { attachOwnerData } from "../../../lib/ownerStore";
+import { withErrorHandling } from "../../../lib/apiError";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request) {
+export const GET = withErrorHandling(async (request) => {
   const sp = request.nextUrl.searchParams;
   const params = {
     q: sp.get("q") || "",
@@ -54,4 +55,4 @@ export async function GET(request) {
   }
 
   return NextResponse.json({ source, count: results.length, results });
-}
+});

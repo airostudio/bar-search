@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import { ownerFromRequest } from "../../../../lib/ownerAuth";
 import { createClaim, isOwnerStoreConfigured, listClaimsForOwner } from "../../../../lib/ownerStore";
+import { withErrorHandling } from "../../../../lib/apiError";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request) {
+export const GET = withErrorHandling(async (request) => {
   const owner = ownerFromRequest(request);
   if (!owner) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const claims = await listClaimsForOwner(owner.id);
   return NextResponse.json({ claims });
-}
+});
 
-export async function POST(request) {
+export const POST = withErrorHandling(async (request) => {
   const owner = ownerFromRequest(request);
   if (!owner) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   if (!isOwnerStoreConfigured()) {
@@ -25,4 +26,4 @@ export async function POST(request) {
 
   await createClaim({ venueId: String(venueId), venueName: String(venueName), venueCity, venueCountryCode, ownerId: owner.id });
   return NextResponse.json({ ok: true });
-}
+});

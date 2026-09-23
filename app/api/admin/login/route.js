@@ -5,8 +5,9 @@ import {
   isAdminConfigured,
   ADMIN_COOKIE_NAME,
 } from "../../../../lib/adminAuth";
+import { withErrorHandling } from "../../../../lib/apiError";
 
-export async function POST(request) {
+export const POST = withErrorHandling(async (request) => {
   if (!isAdminConfigured()) {
     return NextResponse.json(
       { error: "Admin login is not configured on this deployment. Set ADMIN_PASSWORD." },
@@ -28,7 +29,7 @@ export async function POST(request) {
     maxAge: 60 * 60 * 12,
   });
   return res;
-}
+});
 
 export async function DELETE() {
   const res = NextResponse.json({ ok: true });

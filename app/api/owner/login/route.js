@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { supabaseAuthRequest } from "../../../../lib/supabaseClient";
 import { createOwnerSessionCookieValue, isOwnerAuthConfigured, OWNER_COOKIE_NAME } from "../../../../lib/ownerAuth";
+import { withErrorHandling } from "../../../../lib/apiError";
 
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-export async function POST(request) {
+export const POST = withErrorHandling(async (request) => {
   if (!isOwnerAuthConfigured()) {
     return NextResponse.json(
       { error: "Bar owner accounts aren't configured on this deployment yet." },
@@ -31,7 +32,7 @@ export async function POST(request) {
   } catch {
     return NextResponse.json({ error: "Incorrect email or password." }, { status: 401 });
   }
-}
+});
 
 export async function DELETE() {
   const res = NextResponse.json({ ok: true });
