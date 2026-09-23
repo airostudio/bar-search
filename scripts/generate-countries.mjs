@@ -21,6 +21,12 @@ for (let i = 0; i < 26; i++) {
     if (!name || name === code) continue;
     // Skip meta/exceptional regions that aren't searchable places.
     if (["EU", "EZ", "UN", "QO", "ZZ", "XA", "XB"].includes(code)) continue;
+    // Skip deprecated/historical ISO 3166-1 codes that ICU still resolves as
+    // aliases of a current country's name (e.g. FX "France, Metropolitan" ->
+    // France, DD East Germany -> Germany, SU USSR -> Russia, UK -> United
+    // Kingdom's unofficial alias for GB). Left in, these show every one of
+    // those countries twice in the picker with no visible difference.
+    if (["FX", "DD", "SU", "CS", "YU", "TP", "UK", "NH", "VD", "YD", "RH", "DY", "HV", "ZR", "AN", "BU"].includes(code)) continue;
     countries.push({ code, name });
   }
 }

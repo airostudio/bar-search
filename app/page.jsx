@@ -11,7 +11,7 @@ const FEATURES = [
   {
     icon: "🌍",
     title: "Every country, one search",
-    body: "Google Places-powered live search covers all 273 ISO countries and territories, plus a bundled demo dataset so the site works with no setup at all.",
+    body: "Google Places-powered live search covers all 257 ISO countries and territories, plus a bundled demo dataset so the site works with no setup at all.",
   },
   {
     icon: "🎲",

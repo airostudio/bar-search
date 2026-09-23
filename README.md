@@ -7,7 +7,7 @@ cabarets, adult lounges).
 
 ## Features
 
-- **Full search** (`/search`) — free-text keyword, country (all 273 ISO
+- **Full search** (`/search`) — free-text keyword, country (all 257 ISO
   countries/territories), city, multi-select categories, minimum rating, and sorting.
 - **Google Maps** — every venue has an embedded map (no API key needed for the embed)
   plus an "open in Google Maps" link.
