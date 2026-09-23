@@ -148,6 +148,13 @@ input[type="text"]:focus, select:focus { outline: 2px solid var(--accent); outli
 .nearby-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; }
 .nearby-finder .map-frame { border-radius: 8px; height: 220px; }
 .nearby-results { display: flex; flex-wrap: wrap; gap: 6px; }
+.nearby-results button.link-pill { background: var(--bg-input); cursor: pointer; font-family: inherit; }
+.nearby-results button.link-pill:hover { border-color: var(--accent); color: var(--text); }
+
+.get-there { margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
+.get-there .map-frame { border-radius: 8px; height: 220px; }
+.link-pill.ride { border-color: #3fae6a; color: #6fdc96; }
+.link-pill.ride-uber { border-color: #555; color: #ddd; }
 
 /* ---------- age gate ---------- */
 .gate-backdrop {

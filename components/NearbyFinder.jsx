@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CATEGORIES } from "../lib/categories";
+import GetThere from "./GetThere";
 
 const ANY_VIBE = { id: "", label: "Surprise me", icon: "🎲" };
 
@@ -10,11 +11,13 @@ export default function NearbyFinder({ venue, includeAdult, onClose }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [data, setData] = useState(null);
+  const [picked, setPicked] = useState(null);
 
   const vibeOptions = [ANY_VIBE, ...CATEGORIES.filter((c) => includeAdult || !c.adult)];
 
   const find = async (vibeId) => {
     setVibe(vibeId);
+    setPicked(null);
     setLoading(true);
     setError("");
     try {
@@ -38,6 +41,10 @@ export default function NearbyFinder({ venue, includeAdult, onClose }) {
       setLoading(false);
     }
   };
+
+  if (picked) {
+    return <GetThere venue={picked} onBack={() => setPicked(null)} />;
+  }
 
   return (
     <div className="nearby-finder">
@@ -81,11 +88,15 @@ export default function NearbyFinder({ venue, includeAdult, onClose }) {
       ) : null}
 
       {!loading && data && data.results.length > 0 ? (
+        <p className="empty small">Pick one to see walking directions and a ride option:</p>
+      ) : null}
+
+      {!loading && data && data.results.length > 0 ? (
         <div className="nearby-results">
           {data.results.map((v) => (
-            <a key={v.id} className="link-pill maps" href={v.mapsUrl} target="_blank" rel="noopener noreferrer">
+            <button key={v.id} className="link-pill maps" type="button" onClick={() => setPicked(v)}>
               {v.categoryIcon} {v.name}{v.rating ? ` · ★${v.rating.toFixed(1)}` : ""}
-            </a>
+            </button>
           ))}
         </div>
       ) : null}
