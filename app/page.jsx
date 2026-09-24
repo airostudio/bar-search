@@ -1,5 +1,6 @@
 import NavBar from "../components/NavBar";
 import Wordmark from "../components/Wordmark";
+import SplashScreen from "../components/SplashScreen";
 
 export const metadata = {
   title: "myvibe.bar — Find your next favorite bar",
@@ -39,6 +40,7 @@ const STEPS = [
 export default function LandingPage() {
   return (
     <>
+      <SplashScreen />
       <NavBar />
 
       <header className="hero">
